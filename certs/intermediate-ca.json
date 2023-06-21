@@ -1,0 +1,19 @@
+{
+  "CN": "Local Example Intermediate CA",
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+    {
+      "C":  "GB",
+      "L":  "London",
+      "O":  "Local",
+      "OU": "Example Intermediate CA",
+      "ST": "England"
+    }
+  ],
+  "ca": {
+    "expiry": "42720h"
+  }
+}

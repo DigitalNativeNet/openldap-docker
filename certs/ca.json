@@ -1,0 +1,16 @@
+{
+  "CN": "Local Example Root CA",
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+  {
+    "C": "GB",
+    "L": "London",
+    "O": "Local",
+    "OU": "Example",
+    "ST": "England"
+  }
+ ]
+}

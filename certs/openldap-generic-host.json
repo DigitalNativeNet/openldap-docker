@@ -1,0 +1,21 @@
+{
+  "CN": "ldap.local",
+  "key": {
+    "algo": "rsa",
+    "size": 2048
+  },
+  "names": [
+  {
+    "C": "GB",
+    "L": "London",
+    "O": "Local",
+    "OU": "Example Internal Host",
+    "ST": "England"
+  }
+  ],
+  "hosts": [
+    "ldap",
+    "ldap.local",
+    "localhost"
+  ]
+}

@@ -1,0 +1,62 @@
+version: '3'
+
+networks:
+  ldap-network:
+    driver: bridge
+
+services:
+  ldap:
+    image: bitnami/openldap:latest
+    ports:
+      - '1389:1389'
+      - '1636:1636'
+    environment:
+      LDAP_LOG_LEVEL: "-1"
+
+      LDAP_PORT_NUMBER: "1389"
+      LDAP_ROOT: "dc=example,dc=org"
+
+      LDAP_READONLY_USER: "false"
+      LDAP_READONLY_USER_USERNAME: "readonly"
+      LDAP_READONLY_USER_PASSWORD: "readonly"
+
+      LDAP_CONFIG_ADMIN_ENABLED: "true"
+      LDAP_ADMIN_USERNAME: "admin"
+      LDAP_ADMIN_PASSWORD: "adminpassword"
+
+      LDAP_USERS: "user01,user02,user03,user04,user05"
+      LDAP_PASSWORDS: "password1,password2,password3,password4,password5"
+      LDAP_USER_DC: "users"
+      LDAP_GROUP: "readers"
+
+      LDAP_ENABLE_TLS: "yes"
+      LDAP_LDAPS_PORT_NUMBER: "1636"
+      LDAP_TLS_CERT_FILE: "/opt/bitnami/openldap/certs/server.crt"
+      LDAP_TLS_KEY_FILE: "/opt/bitnami/openldap/certs/server.key"
+      LDAP_TLS_CA_FILE: "/opt/bitnami/openldap/certs/ca.crt"
+
+    networks:
+      - ldap-network
+    volumes:
+      - 'openldap_data:/bitnami/openldap'
+      - './certs:/opt/bitnami/openldap/certs'
+
+  ldapui:
+    image: dnnet/ldap-ui:0.0.1
+    ports: 
+      - 5000:5000
+    environment:
+      LDAP_URL: "${LDAP_URL:-ldaps://ldap:1636/}"
+      USE_TLS: ${USE_TLS:-yes}
+      INSECURE_TLS: ${INSECURE_TLS:-}
+      BASE_DN: "${BASE_DN:-dc=example,dc=org}"
+      BIND_DN: "${BIND_DN:-cn=admin,dc=example,dc=org}"
+      BIND_PASSWORD: "${BIND_PASSWORD:-adminpassword}"
+
+    networks:
+      - ldap-network
+
+volumes:
+  openldap_data:
+    driver: local
+
