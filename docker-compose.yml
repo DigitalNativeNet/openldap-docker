@@ -42,7 +42,7 @@ services:
       - './certs:/opt/bitnami/openldap/certs'
 
   ldapui:
-    image: dnnet/ldap-ui:0.0.1
+    image: dnknth/ldap-ui:latest
     ports: 
       - 5000:5000
     environment:
@@ -52,6 +52,8 @@ services:
       BASE_DN: "${BASE_DN:-dc=example,dc=org}"
       BIND_DN: "${BIND_DN:-cn=admin,dc=example,dc=org}"
       BIND_PASSWORD: "${BIND_PASSWORD:-adminpassword}"
+    volumes:
+      - './certs/ca.crt:/etc/ssl/certs/ca-certificates.crt'
 
     networks:
       - ldap-network
